@@ -10,16 +10,28 @@
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
 
+SIGNING_TYPES = ["adhoc", "appstore", "development"]
 
-# TODO: This is a placeholder, probably broken and needs to be tested out.
+
 platform :ios do
-  desc "Build the project"
-  lane :build do
-    gym()
+  desc "Syncs the signing certificates and provisioning profiles"
+  lane :signing_get do
+    SIGNING_TYPES.each {
+      match(
+        readonly: true,
+        type: _1
+      )
+    }
   end
 
-  desc "Run unit tests"
-  lane :tests do
-    scan()
+  desc "Sets the signing certificates and provisioning profiles"
+  lane :signing_update do
+    SIGNING_TYPES.each {
+      match(
+        force_for_new_devices: true,
+        include_mac_in_profiles: true,
+        type: _1
+      )
+    }
   end
 end

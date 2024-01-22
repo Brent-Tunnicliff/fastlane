@@ -10,5 +10,7 @@
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
 
-import "android/Fastfile"
-import "ios/Fastfile"
+CURRENT_DIR=File.expand_path File.dirname(__FILE__)
+
+import "#{CURRENT_DIR}/android/Fastfile"
+import "#{CURRENT_DIR}/ios/Fastfile"
